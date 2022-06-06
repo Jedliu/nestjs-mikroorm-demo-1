@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  test-mikro:
+    image: postgres
+    restart: always
+    ports:
+      - '5443:5432'
+    environment:
+      POSTGRES_PASSWORD: password
+      TZ: 'Asia/Shanghai'
+      PGTZ: 'Asia/Shanghai'

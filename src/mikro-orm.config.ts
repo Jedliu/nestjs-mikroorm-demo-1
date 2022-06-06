@@ -1,17 +1,26 @@
-import { Logger } from '@nestjs/common';
-import { Options } from '@mikro-orm/core';
-import { MikroBook } from './library/book.entity';
+import { LoadStrategy } from '@mikro-orm/core';
+import { MikroOrmModuleOptions as Options } from '@mikro-orm/nestjs';
+import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
+import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 
-const logger = new Logger('MikroORM');
 const config: Options = {
-  entities: [MikroBook],
-  dbName: 'testdb',
-  type: 'mysql',
-  port: 3306,
-  debug: true,
-  user: 'root',
+  type: 'postgresql',
+  host: 'localhost',
+  port: 5443,
+  user: 'postgres',
   password: 'password',
-  logger: logger.log.bind(logger),
+  dbName: 'postgres',
+  entities: ['dist/**/*.entity.js'],
+  entitiesTs: ['src/**/*.entity.ts'],
+  debug: true,
+  loadStrategy: LoadStrategy.JOINED,
+  highlighter: new SqlHighlighter(),
+  metadataProvider: TsMorphMetadataProvider,
+  registerRequestContext: false,
+  migrations: {
+    path: 'dist/migrations',
+    pathTs: 'src/migrations',
+  },
 };
 
 export default config;
