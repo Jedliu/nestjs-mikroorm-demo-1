@@ -6,6 +6,10 @@ export class Comment {
   @PrimaryKey({ onCreate: () => v4() })
   id!: string;
 
+  // comment out below rows
+  // @Property({ autoincrement: true, primary: false })
+  // _id!: number;
+
   @Property()
   content: string;
 
