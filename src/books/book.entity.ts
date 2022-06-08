@@ -1,9 +1,10 @@
 import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
+import { v4 } from 'uuid';
 
 @Entity()
-export class MikroBook {
-  @PrimaryKey()
-  id: number;
+export class Book {
+  @PrimaryKey({ onCreate: () => v4() })
+  id!: string;
 
   @Property()
   title: string;
@@ -12,7 +13,7 @@ export class MikroBook {
   author: string;
 
   @Property()
-  description?: string;
+  description?: string = null;
 
   constructor(title: string, author: string) {
     this.title = title;
