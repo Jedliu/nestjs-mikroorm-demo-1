@@ -32,7 +32,8 @@
     "@nestjs/platform-express": "^8.4.6",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.5.5"
+    "rxjs": "^7.5.5",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@mikro-orm/cli": "^5.1.5",
