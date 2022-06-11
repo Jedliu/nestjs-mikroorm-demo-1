@@ -1,14 +1,20 @@
-import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
+import {
+  Collection,
+  Entity,
+  OneToMany,
+  PrimaryKey,
+  Property,
+} from '@mikro-orm/core';
 import { v4 } from 'uuid';
+import { Comment } from '../comments/comment.entity';
 
 @Entity()
 export class Book {
   @PrimaryKey({ onCreate: () => v4() })
   id!: string;
 
-  // comment out below rows
-  // @Property({ autoincrement: true, primary: false })
-  // _id!: number;
+  @Property({ autoincrement: true })
+  _id!: number;
 
   @Property()
   title: string;
@@ -18,6 +24,13 @@ export class Book {
 
   @Property()
   description?: string = null;
+
+  @OneToMany({
+    entity: () => Comment,
+    mappedBy: 'book',
+    hidden: true,
+  })
+  comments = new Collection<Comment>(this);
 
   constructor(title: string, author: string) {
     this.title = title;

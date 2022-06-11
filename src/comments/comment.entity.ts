@@ -1,17 +1,20 @@
-import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
+import { Entity, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core';
 import { v4 } from 'uuid';
+import { Book } from '../books/book.entity';
 
 @Entity()
 export class Comment {
   @PrimaryKey({ onCreate: () => v4() })
   id!: string;
 
-  // comment out below rows
-  // @Property({ autoincrement: true, primary: false })
-  // _id!: number;
+  @Property({ autoincrement: true })
+  _id!: number;
 
   @Property()
   content: string;
+
+  @ManyToOne()
+  book: Book;
 
   constructor(content: string) {
     this.content = content;
